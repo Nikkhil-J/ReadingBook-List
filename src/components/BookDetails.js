@@ -6,8 +6,8 @@ const BookDetails = ({book}) => {
     return (
         <li>
           <div className="title"> {book.title} </div>
-          <div className="author"> {book.author}</div>  
-          <button onClick={() => dispatch({type: 'REMOVE_BOOK' , id: book.id})}>READ</button> 
+          <div className="author"> -{book.author}</div>  
+          <button onClick={() => dispatch({type: 'REMOVE_BOOK' , id: book.id})}>Completed</button> 
         </li>
     )
 }
