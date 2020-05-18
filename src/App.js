@@ -1,17 +1,29 @@
-import React from 'react';
-import BookContextProvider from './contexts/BookContext';
-import Navbar from './components/Navbar';
-import BookList from './components/BookList';
-import BookForm from './components/BookForm';
+import React ,{useState , useEffect} from 'react';
+import axios from 'axios';
 
 function App() {
+  const [advice, setAdvice] = useState('')
+
+  useEffect( () => {
+    getAdvice()
+  },[])
+
+  const getAdvice = () => {
+    axios.get('https://api.adviceslip.com/advice')
+      .then(res => {
+        const {advice} = res.data.slip
+        setAdvice(advice)
+      })
+      .catch(err => console.log(err))
+  }
   return (
     <div className="App">
-      <BookContextProvider>
-        <Navbar/>
-        <BookList/>
-        <BookForm/>
-      </BookContextProvider>
+      <div className="card">
+        <h1 className="heading">{advice}</h1>
+        <button onClick={getAdvice} className="button">
+          <span>GIVE ME ADVICE!</span>
+        </button>
+      </div>
     </div>
   );
 }
